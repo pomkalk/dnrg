@@ -1,7 +1,6 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
 	"net/http"
 )
@@ -12,13 +11,10 @@ type User struct {
 }
 
 func main() {
-	http.HandleFunc("/api/user", func(w http.ResponseWriter, request *http.Request) {
-		b, _ := json.Marshal(User{
-			Id:   "1",
-			Name: "pomka",
-		})
+	http.HandleFunc("/api/greeting", func(w http.ResponseWriter, request *http.Request) {
+		b := fmt.Sprintf(`{"message": "Hello, %s from go"}`, request.URL.Query().Get("name"))
 		w.Header().Set("Content-Type", "application/json")
-		fmt.Fprint(w, string(b))
+		fmt.Fprint(w, b)
 	})
 	http.ListenAndServe(":4000", nil)
 }

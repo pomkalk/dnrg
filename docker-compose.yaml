@@ -8,3 +8,5 @@ services:
       - goback
   goback:
     build: .
+  rustback:
+    build: rust-srv
