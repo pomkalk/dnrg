@@ -27,5 +27,5 @@ async fn greeting (query: web::Query<Query>) -> impl Responder {
 async fn main() -> std::io::Result<()> {
     HttpServer::new(|| {
         App::new().service(greeting)
-    }).bind(("127.0.0.1", 4001))?.run().await
+    }).bind(("0.0.0.0", 4001))?.run().await
 }
