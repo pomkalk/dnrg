@@ -3,8 +3,8 @@ COPY . /src
 WORKDIR /src
 RUN cargo build --release
 
-FROM debian:buster-slim
-RUN apt-get update & apt-get install -y extra-runtime-dependencies & rm -rf /var/lib/apt/lists/*
+
+FROM gcr.io/distroless/cc-debian12 as prod
 COPY --from=build /src/target/release/rust-srv /app/srv
 EXPOSE 4001
-ENTRYPOINT /app/srv
+CMD ["./app/srv"]
